@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "task")
 public class TaskDto implements Serializable {
-    @Null(message = "TaskId Should be null")
+    @Null(message = "TaskId Should be null", groups = Create.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taskId;
@@ -33,7 +33,7 @@ public class TaskDto implements Serializable {
     @Column
     private LocalDate deadline;
 
-    @Null(message = "Status should be empty", groups = Create.class)
+    @Null(message = "Status should be null", groups = Create.class)
     @NotNull(message = "Status should not be empty", groups = Update.class)
     @Column(nullable = false)
     private Boolean status;
