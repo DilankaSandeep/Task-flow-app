@@ -6,7 +6,7 @@ import spring.dto.TaskDto;
 import java.util.List;
 
 public interface TaskService {
-   List<TaskDto> getAllTask();
+   List<TaskDto> getAllTask(String email);
 
    TaskDto getTaskbyId(int taskid);
 

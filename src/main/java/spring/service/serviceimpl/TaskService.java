@@ -33,14 +33,16 @@ public class TaskService implements spring.service.TaskService {
     }
 
     @Override
-    public List<TaskDto> getAllTask() {
+    public List<TaskDto> getAllTask(String email) {
         List<TaskDto> resultList;
         try (Session session = sf.openSession()) {
             Transaction tx = session.beginTransaction();
             try {
 
-                String hql = "FROM TaskDto";
+                String hql = "FROM TaskDto WHERE email =:emaild ORDER BY taskId";
+
                 Query<TaskDto> query = session.createQuery(hql, TaskDto.class);
+                query.setParameter("emaild", email);
                 resultList = query.getResultList();
                 tx.commit();
             } catch (Throwable t) {

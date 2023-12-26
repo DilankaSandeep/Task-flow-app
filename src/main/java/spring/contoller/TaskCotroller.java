@@ -26,9 +26,9 @@ public class TaskCotroller {
     private TaskService taskService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(produces = "application/json")
-    public List<TaskDto> getAllTasks() {
-        List<TaskDto> allTask = taskService.getAllTask();
+    @GetMapping(produces = "application/json", params = {"email"})
+    public List<TaskDto> getAllTasks(String email) {
+        List<TaskDto> allTask = taskService.getAllTask(email);
         allTask.forEach(taskDto -> {
             System.out.println(taskDto.getTaskId());
         });
