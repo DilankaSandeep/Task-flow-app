@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import {auth} from "./firebase.ts";
 import {useUser, useUserDispatcher} from "./contex/UserContex.tsx";
 import {Header} from "./component/header/Header.tsx";
+import {TaskForm} from "./component/form/TaskForm.tsx";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
                 user ?
                     (<>
                         <Header/>
+                        <TaskForm/>
 
                     </>)
                     :
