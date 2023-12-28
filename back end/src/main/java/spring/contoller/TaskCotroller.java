@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
-@CrossOrigin("*")
+@CrossOrigin
 public class TaskCotroller {
 
     @Autowired
@@ -38,6 +38,7 @@ public class TaskCotroller {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = "application/json", consumes = "application/json")
     public TaskDto saveTask(@RequestBody @Validated(TaskDto.Create.class) TaskDto taskDto){
+
         TaskDto task = taskService.createTask(taskDto);
         return task;
     }
