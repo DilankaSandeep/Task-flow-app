@@ -70,6 +70,7 @@ public class TaskService implements spring.service.TaskService {
                 query.setParameter("deadline",date);
                 resultList = query.getResultList();
                 tx.commit();
+                System.out.println(date);
             } catch (Throwable t) {
                 if (tx != null && tx.isActive()) {
                     tx.rollback();

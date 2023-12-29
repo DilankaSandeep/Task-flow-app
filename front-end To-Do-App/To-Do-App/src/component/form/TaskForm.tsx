@@ -1,7 +1,7 @@
 import {useUser} from "../../contex/UserContex.tsx";
 import React, {FormEvent, useEffect, useRef, useState} from "react";
 import {TaskDto} from "../../dto/TaskDto.ts";
-import {createTask} from "../../service/TaskService.ts";
+import {createTask, getTodaysAllTask} from "../../service/TaskService.ts";
 import {Simulate} from "react-dom/test-utils";
 import compositionStart = Simulate.compositionStart;
 import {useTaskList, useTaskListDispatcher} from "../../contex/TaskListContex.tsx";
@@ -91,7 +91,16 @@ const alertElem = useRef<HTMLDivElement>(null);
         setSelectedDay(event.target.value !== '' ? parseInt(event.target.value, 10) : '');
     };
 
+function  handleClicktodaytask(){
+    var date = new Date();
+    var fullYear = date.getFullYear();
+    var month = date.getMonth()+1;
+    var date1 = date.getDate();
 
+    getTodaysAllTask(user?.email!,`${fullYear}-${month}-${date1}`).then((res)=>{
+        console.log(res)
+    })
+}
 
 
     // @ts-ignore
@@ -160,6 +169,7 @@ const alertElem = useRef<HTMLDivElement>(null);
                 </form>
                 <div className="flex flex-col gap-8 justify-center">
                     <button type="button"
+                            onClick={handleClicktodaytask}
                             className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Today's Tasks
                     </button>
                     <button type="button"
