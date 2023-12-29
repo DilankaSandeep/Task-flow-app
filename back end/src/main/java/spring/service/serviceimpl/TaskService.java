@@ -16,6 +16,7 @@ import javax.annotation.PreDestroy;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,6 +44,30 @@ public class TaskService implements spring.service.TaskService {
 
                 Query<TaskDto> query = session.createQuery(hql, TaskDto.class);
                 query.setParameter("emaild", email);
+                resultList = query.getResultList();
+                tx.commit();
+            } catch (Throwable t) {
+                if (tx != null && tx.isActive()) {
+                    tx.rollback();
+                }
+                throw t;
+            }
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<TaskDto> getAllTodaysTask(String email, LocalDate date) {
+        List<TaskDto> resultList;
+        try (Session session = sf.openSession()) {
+            Transaction tx = session.beginTransaction();
+            try {
+
+                String hql = "FROM TaskDto WHERE email =:emaild AND deadline=:deadline ORDER BY taskId";
+
+                Query<TaskDto> query = session.createQuery(hql, TaskDto.class);
+                query.setParameter("emaild", email);
+                query.setParameter("deadline",date);
                 resultList = query.getResultList();
                 tx.commit();
             } catch (Throwable t) {

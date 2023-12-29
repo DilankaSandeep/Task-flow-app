@@ -15,6 +15,7 @@ import spring.dto.TaskDto;
 import spring.service.TaskService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,6 +30,16 @@ public class TaskCotroller {
     @GetMapping(produces = "application/json", params = {"email"})
     public List<TaskDto> getAllTasks(String email) {
         List<TaskDto> allTask = taskService.getAllTask(email);
+        allTask.forEach(taskDto -> {
+            System.out.println(taskDto.getTaskId());
+        });
+        return allTask;
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(produces = "application/json", params = {"email", "deadline"})
+    public List<TaskDto> getAllTodayTasks(String email,String deadline) {
+        LocalDate localDate = LocalDate.parse(deadline);
+        List<TaskDto> allTask = taskService.getAllTodaysTask(email,localDate);
         allTask.forEach(taskDto -> {
             System.out.println(taskDto.getTaskId());
         });
