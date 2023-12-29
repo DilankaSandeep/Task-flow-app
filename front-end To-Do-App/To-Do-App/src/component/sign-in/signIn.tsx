@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {auth} from "../../firebase.ts";
 import {  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
+import './signIn.css'
 
 
 const provider = new GoogleAuthProvider();
@@ -19,9 +19,10 @@ export const SignIn = () => {
     }
     return (
         <>
-        <div  className="flex flex-col items-center justify-center vh-100  ">
+        <div  className="flex flex-col items-center justify-center h-full gap-8 ">
             <h1 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-2xl lg:text-4xl animate__animated animate__backInRight"><span
                 className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Task Flow</span> : Effortless To-Do Management</h1>
+            <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Welcome to Task Flow, the ultimate solution for streamlined task management designed to make your life easier and more organized. Task Flow is not just a to-do list; it's your personal productivity companion, accessible from anywhere, whether you're at your computer or on the go with your mobile device.</p>
             <div>
                 <button type="button" onClick={handlesignIn}
                         className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
@@ -34,6 +35,10 @@ export const SignIn = () => {
                     {}
                     Sign in with Google
                 </button></div>
+            <div className="background ">
+                <img src={"src/images/todo.png"} alt="Description of the image" />
+
+            </div>
 
         </div>
         </>

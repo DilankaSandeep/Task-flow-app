@@ -3,6 +3,7 @@ import {useTaskList, useTaskListDispatcher} from "../../contex/TaskListContex.ts
 import React, {useEffect} from "react";
 import {deleteTaskbyId, getAllTasks, updateTask} from "../../service/TaskService.ts";
 import {TaskDto} from "../../dto/TaskDto.ts";
+import './TaskList.css'
 
 export const TaskList = () => {
     const user = useUser();
@@ -44,7 +45,7 @@ export const TaskList = () => {
     }
     function  handleUpdate(e:React.ChangeEvent<HTMLInputElement>,task:TaskDto){
         updateTask(task).then(()=>{
-            console.log("Successfully Updated the task")
+            console.log("Successfully Updated the task");
         }).catch(err=>{
             alert("Failed to update Task. Try Again Later");
             console.log("Failed to update")
@@ -57,9 +58,9 @@ export const TaskList = () => {
     // @ts-ignore
     return (
         <>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <div className="w-full flex  justify-center text-center relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table className=" w-full md:w-11/12 lg:w-11/12 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
 
                         <th scope="col" className="px-6 py-3">
@@ -82,7 +83,7 @@ export const TaskList = () => {
                     <tbody>
                     {taskList? taskList.map((task) => (
 
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={task.taskId}>
+                        <tr className={task.status? "bg-green-300 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-500 dark:hover:bg-green-500": "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-blue-100 dark:hover:bg-gray-600"} key={task.taskId}>
 
                             <th scope="row"
                                 key={task.taskId+"des"}
@@ -93,7 +94,7 @@ export const TaskList = () => {
                             <td   key={task.taskId+"dl"} className="px-6 py-4">
                                 {formatDate(task.deadline)}
                             </td>
-                            <td className="px-6 py-4" key={task.taskId+"st"}>
+                            <td className="px-6 py-4 font-bold" key={task.taskId+"st"}>
                                 {task.status? "Task Completed": "To DO"}
                             </td>
                             <td className="px-6 py-4 " key={task.taskId+"ch"}>
@@ -102,7 +103,6 @@ export const TaskList = () => {
                                            checked={task.status!}
                                            onChange={(event)=>{
                                                taskListDispatcher({type:"update", taskdto:task})
-
                                                handleUpdate(event,task);
                                            }}
                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>

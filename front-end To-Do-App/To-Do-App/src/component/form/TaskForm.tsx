@@ -99,65 +99,79 @@ const alertElem = useRef<HTMLDivElement>(null);
     // @ts-ignore
     return (
         <>
-            <form className=" mx-auto  w-1/2" onSubmit={handleSubmit}>
-
-                <div className="mb-5 ">
-                    <label htmlFor="taskdes" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Task Description</label>
-                    <input type="text" id="taskdes" ref={inputref}
-                           className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           placeholder="Task Description" required value={taskdes} onChange={(e)=>{setTaskDes(e.target.value)}}/>
-                </div>
-
-                <label htmlFor="deadline" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter dead-Line</label>
-                <div className="flex">
-                    <div className="mb-5">
-                <label htmlFor="year" className="sr-only">Select Year</label>
-                <select id="year"
-                        value={selectedYear}
-                        onChange={handleYearChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Select Year</option>
-                    {years.map((year,index)=>(
-                        <option value={year} key={year}>{year}</option>
-                    ))}
-
-                </select>
-                </div>
-                    <div className="mb-5">
-                        <label htmlFor="month" className="sr-only">Select a Month</label>
-                        <select id="month"
-                                value={selectedMonth}
-                                onChange={handleMonthChange}
-                                ref={selectmonthref}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected>Select the Month</option>
-                            {months.map((month,index)=>(
-                                <option value={month} key={month}>{month}</option>
-                            ))}
-                        </select>
+            <div className="w-full flex flex-row justify-start gap-x-16 p-2">
+                <form className=" w-3/6 align-top" onSubmit={handleSubmit}>
+                    <div className="mb-5 ">
+                        <label htmlFor="taskdes" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Task Description</label>
+                        <input type="text" id="taskdes" ref={inputref}
+                               className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Task Description" required value={taskdes} onChange={(e)=>{setTaskDes(e.target.value)}}/>
                     </div>
-                    <div className="mb-5">
-                        <label htmlFor="day" className="sr-only">Select a day</label>
-                        <select id="day"
-                                value={selectedDay}
-                                onChange={handleDayChange}
-                                ref={selectdayref}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected>Choose a date</option>
-                            {days.map((day,index)=>(
-                                <option value={day} key={day}>{day}</option>
-                            ))}
-                        </select>
+
+                    <label htmlFor="deadline" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter dead-Line</label>
+                    <div className="flex">
+                        <div className="mb-5">
+                            <label htmlFor="year" className="sr-only">Select Year</label>
+                            <select id="year"
+                                    value={selectedYear}
+                                    onChange={handleYearChange}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected>Select Year</option>
+                                {years.map((year,index)=>(
+                                    <option value={year} key={year}>{year}</option>
+                                ))}
+
+                            </select>
+                        </div>
+                        <div className="mb-5">
+                            <label htmlFor="month" className="sr-only">Select a Month</label>
+                            <select id="month"
+                                    value={selectedMonth}
+                                    onChange={handleMonthChange}
+                                    ref={selectmonthref}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected>Select the Month</option>
+                                {months.map((month,index)=>(
+                                    <option value={month} key={month}>{month}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="mb-5">
+                            <label htmlFor="day" className="sr-only">Select a day</label>
+                            <select id="day"
+                                    value={selectedDay}
+                                    onChange={handleDayChange}
+                                    ref={selectdayref}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected>Choose a date</option>
+                                {days.map((day,index)=>(
+                                    <option value={day} key={day}>{day}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
+                    <button type="submit"
+                            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Add Task
+                    </button>
+                    <div ref={alertElem} className="alertremove trasition p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                         role="alert">
+                        <span className="font-medium">Success alert!</span> Task is added to your To-Do List Successfully.
+                    </div>
+                </form>
+                <div className="flex flex-col gap-8 justify-center">
+                    <button type="button"
+                            className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Today's Tasks
+                    </button>
+                    <button type="button"
+                            className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Completed Tasks
+                    </button>
+                    <button type="button"
+                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Delayed Tasks
+                    </button>
                 </div>
-                <button type="submit"
-                        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Add Task
-                </button>
-            </form>
-            <div ref={alertElem} className="alertremove trasition p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                 role="alert">
-                <span className="font-medium">Success alert!</span> Task is added to your To-Do List Successfully.
+
             </div>
+
 
 
         </>
