@@ -1,7 +1,8 @@
 import {useUser} from "../../contex/UserContex.tsx";
 import {useTaskList, useTaskListDispatcher} from "../../contex/TaskListContex.tsx";
 import React, {useEffect} from "react";
-import {getAllTasks} from "../../service/TaskService.ts";
+import {deleteTaskbyId, getAllTasks, updateTask} from "../../service/TaskService.ts";
+import {TaskDto} from "../../dto/TaskDto.ts";
 
 export const TaskList = () => {
     const user = useUser();
@@ -32,7 +33,22 @@ export const TaskList = () => {
         return '';
     }
     function handleDelete(taskId:number){
-        console.log(taskId);
+        deleteTaskbyId(taskId).then(res=>{
+            console.log(taskId+"Task Deleted");
+            taskListDispatcher({type:"delete", id:taskId});
+        }).catch(err=>{
+            console.log("Failed to delete Task Try Again");
+            alert("Failed to delete Task Try Again later")
+        })
+
+    }
+    function  handleUpdate(e:React.ChangeEvent<HTMLInputElement>,task:TaskDto){
+        updateTask(task).then(()=>{
+            console.log("Successfully Updated the task")
+        }).catch(err=>{
+            alert("Failed to update Task. Try Again Later");
+            console.log("Failed to update")
+        })
     }
 
         // @ts-ignore
@@ -83,6 +99,12 @@ export const TaskList = () => {
                             <td className="px-6 py-4 " key={task.taskId+"ch"}>
                                 <div className="flex items-center">
                                     <input id="checkbox-table-1" type="checkbox"
+                                           checked={task.status!}
+                                           onChange={(event)=>{
+                                               taskListDispatcher({type:"update", taskdto:task})
+
+                                               handleUpdate(event,task);
+                                           }}
                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
                                     <label htmlFor="checkbox-table-1" className="sr-only">checkbox</label>
                                 </div>
@@ -99,6 +121,7 @@ export const TaskList = () => {
 
                     </tbody>
                 </table>
+
             </div>
 
 

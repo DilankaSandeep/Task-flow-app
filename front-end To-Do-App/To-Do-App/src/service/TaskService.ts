@@ -1,5 +1,7 @@
 import {TaskDto} from "../dto/TaskDto.ts";
 import BASE_URL from "../config.ts";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 export async function createTask(taskdto:TaskDto){
     return await (await fetch(BASE_URL,{
             method:"POST",
@@ -13,11 +15,20 @@ export  async  function  getAllTasks(email:string){
 }
 
 export async  function  deleteTaskbyId(taskId:number){
-      (await  fetch(`${BASE_URL}/${taskId}`,{
+     return  await  fetch(`${BASE_URL}/${taskId}`,{
         method:"DELETE"
-    }).then(res=>{
-        return "Deleted"
-      }).catch(err=>{
-          return "Failed"
-      }))
+    });
+}
+
+export  async  function  updateTask(task:TaskDto){
+    return await fetch(`${BASE_URL}/${task.taskId}`,{
+        method:"PATCH",
+        headers:{"content-type":"application/json"},
+        body:JSON.stringify({
+            description: task.description,
+            status: !task.status,
+            email: task.email,
+            deadline:task.deadline
+        })
+    })
 }

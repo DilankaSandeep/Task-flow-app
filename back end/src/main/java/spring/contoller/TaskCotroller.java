@@ -59,6 +59,7 @@ public class TaskCotroller {
     public void updateTask(@PathVariable int taskid, @RequestBody @Validated(TaskDto.Update.class) TaskDto taskDto){
         try{
             taskService.updateTask(taskid,taskDto);
+            System.out.println("Updateed");
         }catch (Throwable t){
             t.printStackTrace();
             throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not found");
