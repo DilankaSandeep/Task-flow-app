@@ -9,6 +9,7 @@ import {auth} from "./firebase.ts";
 import {useUser, useUserDispatcher} from "./contex/UserContex.tsx";
 import {Header} from "./component/header/Header.tsx";
 import {TaskForm} from "./component/form/TaskForm.tsx";
+import {TaskList} from "./component/tasklist/TaskList.tsx";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
                     (<>
                         <Header/>
                         <TaskForm/>
+                        <TaskList/>
 
                     </>)
                     :

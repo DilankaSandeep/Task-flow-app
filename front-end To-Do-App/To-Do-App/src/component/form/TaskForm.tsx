@@ -4,6 +4,8 @@ import {TaskDto} from "../../dto/TaskDto.ts";
 import {createTask} from "../../service/TaskService.ts";
 import {Simulate} from "react-dom/test-utils";
 import compositionStart = Simulate.compositionStart;
+import {useTaskList, useTaskListDispatcher} from "../../contex/TaskListContex.tsx";
+import './TaskForm.css'
 
 export const TaskForm = () => {
  const user =  useUser();
@@ -16,6 +18,11 @@ const selectdayref =useRef<HTMLSelectElement>(null);
     const [selectedYear, setSelectedYear] = useState<number | ''>(new Date().getFullYear());
     const [selectedMonth, setSelectedMonth] = useState<number | ''>(new Date().getMonth() + 1); // Months are 0-indexed
     const [selectedDay, setSelectedDay] = useState<number | ''>(new Date().getDate());
+    const  taskList = useTaskList();
+    const  taskListDispatcher = useTaskListDispatcher();
+const alertElem = useRef<HTMLDivElement>(null);
+
+
  const years =[];
     for (let i= new Date().getFullYear();i<=(new Date().getFullYear()+3);i++){
         years.push(i);
@@ -57,10 +64,17 @@ const selectdayref =useRef<HTMLSelectElement>(null);
          return;
      }
      setDeadline(`${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${selectedDay.toString().padStart(2,'0')}`);
-        console.log(deadline);
+
      let taskDto = new TaskDto(null, taskdes, `${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${selectedDay.toString().padStart(2,'0')}`, null, user?.email!);
      console.log(taskDto);
-      createTask(taskDto).then(res=>{console.log("task saved to data base");}).catch(err=>{
+      createTask(taskDto).then(taskDto=>{
+          taskListDispatcher({type:"add", taskdto: taskDto})
+          alertElem.current!.classList.remove("alertremove");
+          setTimeout(()=>{
+              alertElem.current!.classList.add("alertremove")
+          },1500)
+          // alertElem.current!.classList.add("alertshow");
+          console.log("task saved to data base");}).catch(err=>{
           console.log(err);
       });
  }
@@ -136,11 +150,14 @@ const selectdayref =useRef<HTMLSelectElement>(null);
                         </select>
                     </div>
                 </div>
-
                 <button type="submit"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Task
+                        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Add Task
                 </button>
             </form>
+            <div ref={alertElem} className="alertremove trasition p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                 role="alert">
+                <span className="font-medium">Success alert!</span> Task is added to your To-Do List Successfully.
+            </div>
 
 
         </>

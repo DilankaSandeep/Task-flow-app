@@ -12,10 +12,11 @@ const  TaskListDispacherContex = createContext<React.Dispatch<Action>>(()=>{});
 
 function taskListReducer(taskList:TaskDto[], action:Action){
     if(action.type==="add"){
-        taskList.push(action.taskdto);
-        return taskList;
+        console.log("add task in dipatcher")
+        return [...taskList, action.taskdto];
+
     }else if(action.type==="delete"){
-       return taskList.filter(task=>{task.taskId !== action.id});
+        return taskList.filter(task => task.taskId !== action.id);
 
     }else if(action.type ==="update"){
         return taskList.map(task=>{
@@ -26,17 +27,18 @@ function taskListReducer(taskList:TaskDto[], action:Action){
             }
         })
     }else if(action.type === "set-list"){
+        console.log('Setting task list:', action.taskList);
         return action.taskList;
     }else{
         return  taskList;
     }
 }
 
-export function TaskListProvider({children: children}:{children:ReactNode}){
-    const [taskList, taskListDispacher] = useReducer(taskListReducer,[]);
+export function TaskListProvider({children}:{children:ReactNode}){
+    const [taskList, taskListDispatcher] = useReducer(taskListReducer,[]);
     return(
         <TaskListContex.Provider value={taskList}>
-            <TaskListDispacherContex.Provider value={taskListDispacher}>
+            <TaskListDispacherContex.Provider value={taskListDispatcher}>
                 {children}
             </TaskListDispacherContex.Provider>
         </TaskListContex.Provider>
@@ -44,14 +46,14 @@ export function TaskListProvider({children: children}:{children:ReactNode}){
 }
 
 export  function  useTaskList(){
-           const taskDtos = useContext(TaskListContex);
-           return taskDtos;
+          return  useContext(TaskListContex);
+
 
 
 }
 export  function  useTaskListDispatcher(){
-    const taskListDispatcher=   useContext(TaskListDispacherContex);
-    return taskListDispatcher;
+    return  useContext(TaskListDispacherContex);
+
 
 
 }

@@ -7,3 +7,17 @@ export async function createTask(taskdto:TaskDto){
             body: JSON.stringify(taskdto)
     })).json() as TaskDto;
 }
+
+export  async  function  getAllTasks(email:string){
+    return await (await  fetch(`${BASE_URL}?email=${email}`)).json() as TaskDto[];
+}
+
+export async  function  deleteTaskbyId(taskId:number){
+      (await  fetch(`${BASE_URL}/${taskId}`,{
+        method:"DELETE"
+    }).then(res=>{
+        return "Deleted"
+      }).catch(err=>{
+          return "Failed"
+      }))
+}
