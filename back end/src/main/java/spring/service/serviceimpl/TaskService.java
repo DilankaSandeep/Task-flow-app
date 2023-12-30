@@ -82,6 +82,31 @@ public class TaskService implements spring.service.TaskService {
     }
 
     @Override
+    public List<TaskDto> getAllCompletedTask(String email, boolean status) {
+        List<TaskDto> resultList;
+        try (Session session = sf.openSession()) {
+            Transaction tx = session.beginTransaction();
+            try {
+
+                String hql = "FROM TaskDto WHERE email =:emaild AND status=:status ORDER BY taskId";
+
+                Query<TaskDto> query = session.createQuery(hql, TaskDto.class);
+                query.setParameter("emaild", email);
+                query.setParameter("status", status);
+                resultList = query.getResultList();
+                tx.commit();
+
+            } catch (Throwable t) {
+                if (tx != null && tx.isActive()) {
+                    tx.rollback();
+                }
+                throw t;
+            }
+        }
+        return resultList;
+    }
+
+    @Override
     public TaskDto getTaskbyId(int taskid) {
         try(Session session = sf.openSession()){
             Transaction tx = session.beginTransaction();

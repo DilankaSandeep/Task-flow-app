@@ -45,6 +45,22 @@ public class TaskCotroller {
         });
         return allTask;
     }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(produces = "application/json", params = {"email", "status"})
+    public List<TaskDto> getAllCompletedTask(String email,String status) {
+        boolean statusBool= true;
+        if(status.equals("completed")){
+            statusBool=true;
+
+        }else if(status.equals("todo")){
+            statusBool=false;
+        }
+        List<TaskDto> allTask = taskService.getAllCompletedTask(email,statusBool);
+        allTask.forEach(taskDto -> {
+            System.out.println(taskDto.getTaskId());
+        });
+        return allTask;
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = "application/json", consumes = "application/json")

@@ -11,6 +11,8 @@ public interface TaskService {
 
    List<TaskDto> getAllTodaysTask(String email, LocalDate date);
 
+   List<TaskDto> getAllCompletedTask(String email, boolean status);
+
    TaskDto getTaskbyId(int taskid);
 
    void deleteTask(int taskid);
