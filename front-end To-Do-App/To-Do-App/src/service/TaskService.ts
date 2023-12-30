@@ -40,3 +40,7 @@ export  async  function  getTodaysAllTask(email:string,date:string){
 export async function  getCompletedTask(email:string,status:string){
     return await ( await  fetch(`${BASE_URL}?email=${email}&&status=${status}`)).json() as TaskDto[];
 }
+
+export  async  function  getdelyedTask(email:string,date:string){
+    return await (await fetch(`${BASE_URL}?email=${email}&&today=${date}`)).json() as TaskDto[]
+}

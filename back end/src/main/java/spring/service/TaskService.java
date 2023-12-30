@@ -10,6 +10,7 @@ public interface TaskService {
    List<TaskDto> getAllTask(String email);
 
    List<TaskDto> getAllTodaysTask(String email, LocalDate date);
+   List<TaskDto> getdelayedTask(String email, LocalDate date);
 
    List<TaskDto> getAllCompletedTask(String email, boolean status);
 

@@ -46,6 +46,16 @@ public class TaskCotroller {
         return allTask;
     }
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping(produces = "application/json", params = {"email", "today"})
+    public List<TaskDto> getDelayedTask(String email,String today) {
+        LocalDate localDate = LocalDate.parse(today);
+        List<TaskDto> allTask = taskService.getdelayedTask(email,localDate);
+        allTask.forEach(taskDto -> {
+            System.out.println(taskDto.getTaskId());
+        });
+        return allTask;
+    }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(produces = "application/json", params = {"email", "status"})
     public List<TaskDto> getAllCompletedTask(String email,String status) {
         boolean statusBool= true;

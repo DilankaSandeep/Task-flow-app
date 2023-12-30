@@ -82,6 +82,32 @@ public class TaskService implements spring.service.TaskService {
     }
 
     @Override
+    public List<TaskDto> getdelayedTask(String email, LocalDate date) {
+        List<TaskDto> resultList;
+        try (Session session = sf.openSession()) {
+            Transaction tx = session.beginTransaction();
+            try {
+
+                String hql = "FROM TaskDto WHERE email =:emaild AND deadline<:today ORDER BY taskId";
+
+                Query<TaskDto> query = session.createQuery(hql, TaskDto.class);
+                query.setParameter("emaild", email);
+                query.setParameter("today",date);
+                resultList = query.getResultList();
+                tx.commit();
+                System.out.println(date);
+            } catch (Throwable t) {
+                if (tx != null && tx.isActive()) {
+                    tx.rollback();
+                }
+                throw t;
+            }
+        }
+        return resultList;
+    }
+
+
+    @Override
     public List<TaskDto> getAllCompletedTask(String email, boolean status) {
         List<TaskDto> resultList;
         try (Session session = sf.openSession()) {
