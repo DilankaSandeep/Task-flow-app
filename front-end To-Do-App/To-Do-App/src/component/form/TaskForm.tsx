@@ -1,7 +1,7 @@
 import {useUser} from "../../contex/UserContex.tsx";
 import React, {FormEvent, useEffect, useRef, useState} from "react";
 import {TaskDto} from "../../dto/TaskDto.ts";
-import {createTask, getAllTasks, getTodaysAllTask} from "../../service/TaskService.ts";
+import {createTask, getAllTasks, getCompletedTask, getTodaysAllTask} from "../../service/TaskService.ts";
 import {Simulate} from "react-dom/test-utils";
 import compositionStart = Simulate.compositionStart;
 import {useTaskList, useTaskListDispatcher} from "../../contex/TaskListContex.tsx";
@@ -109,7 +109,9 @@ function handleclickAllTask(){
     })
 }
 function handleClickCompletedTasks(){
-
+    getCompletedTask(user?.email!,"completed").then((tasks)=>{
+        taskListDispatcher({type:"set-list",taskList:tasks})
+    })
 }
 
 
