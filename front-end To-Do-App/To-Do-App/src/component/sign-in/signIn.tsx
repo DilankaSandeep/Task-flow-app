@@ -21,7 +21,7 @@ export const SignIn = () => {
         <>
         <div  className="flex flex-col items-center justify-center h-full gap-8 ">
             <h1 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-2xl lg:text-4xl animate__animated animate__backInRight"><span
-                className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Task Flow</span> : Effortless To-Do Management</h1>
+                className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-800">Task Flow</span> : Effortless To-Do Management</h1>
             <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Welcome to Task Flow, the ultimate solution for streamlined task management designed to make your life easier and more organized. Task Flow is not just a to-do list; it's your personal productivity companion, accessible from anywhere, whether you're at your computer or on the go with your mobile device.</p>
             <div>
                 <button type="button" onClick={handlesignIn}

@@ -1,7 +1,7 @@
 import {useUser} from "../../contex/UserContex.tsx";
 import React, {FormEvent, useEffect, useRef, useState} from "react";
 import {TaskDto} from "../../dto/TaskDto.ts";
-import {createTask, getAllTasks, getCompletedTask, getTodaysAllTask} from "../../service/TaskService.ts";
+import {createTask, getAllTasks, getCompletedTask, getdelyedTask, getTodaysAllTask} from "../../service/TaskService.ts";
 import {Simulate} from "react-dom/test-utils";
 import compositionStart = Simulate.compositionStart;
 import {useTaskList, useTaskListDispatcher} from "../../contex/TaskListContex.tsx";
@@ -72,7 +72,7 @@ const alertElem = useRef<HTMLDivElement>(null);
           alertElem.current!.classList.remove("alertremove");
           setTimeout(()=>{
               alertElem.current!.classList.add("alertremove")
-          },1500)
+          },2500)
           // alertElem.current!.classList.add("alertshow");
           console.log("task saved to data base");}).catch(err=>{
           console.log(err);
@@ -115,9 +115,15 @@ function handleClickCompletedTasks(){
 }
 
 function handleclickDelayedTask(){
-
+    var date = new Date();
+    var fullYear = date.getFullYear();
+    var month = date.getMonth()+1;
+    var date1 = date.getDate();
+    getdelyedTask(user?.email!,`${fullYear}-${month}-${date1}`).then((res)=>{
+        taskListDispatcher({type:"set-list",taskList:res});
+        console.log(res)
+    })
 }
-
 
     // @ts-ignore
     // @ts-ignore
