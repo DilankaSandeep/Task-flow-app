@@ -21,7 +21,7 @@ const selectdayref =useRef<HTMLSelectElement>(null);
     const  taskList = useTaskList();
     const  taskListDispatcher = useTaskListDispatcher();
 const alertElem = useRef<HTMLDivElement>(null);
-
+const [numOftaskToday,setNumOfTaskToday] = useState(0);
 
  const years =[];
     for (let i= new Date().getFullYear();i<=(new Date().getFullYear()+3);i++){
@@ -36,6 +36,12 @@ const alertElem = useRef<HTMLDivElement>(null);
     for (let i= 1;i<=31;i++){
         days.push(i);
     }
+
+
+    var date = new Date();
+    var fullYear = date.getFullYear();
+    var month = date.getMonth()+1;
+    var date1 = date.getDate();
 
  function handleSubmit(e:React.FormEvent){
      e.preventDefault();
@@ -57,11 +63,13 @@ const alertElem = useRef<HTMLDivElement>(null);
      console.log('Selected Month:', selectedMonth);
      console.log('Selected Day:', selectedDay);
      // @ts-ignore
-     const selectedDate = new Date(typeof selectedYear === "number" ? selectedYear :2023, selectedMonth - 1, selectedDay); // Month is 0-indexed in JavaScript
+     const selectedDate = new Date(typeof selectedYear === "number" ? selectedYear :2023, selectedMonth, selectedDay);
 
      if (selectedDate < currentDate) {
          selectmonthref.current!.focus();
          return;
+     }else if(selectedDate== currentDate){
+         setDeadline(`${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${selectedDay.toString().padStart(2,'0')}`);
      }
      setDeadline(`${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${selectedDay.toString().padStart(2,'0')}`);
 
@@ -92,10 +100,6 @@ const alertElem = useRef<HTMLDivElement>(null);
     };
 
 function  handleClicktodaytask(){
-    var date = new Date();
-    var fullYear = date.getFullYear();
-    var month = date.getMonth()+1;
-    var date1 = date.getDate();
 
     getTodaysAllTask(user?.email!,`${fullYear}-${month}-${date1}`).then((res)=>{
         taskListDispatcher({type:"set-list",taskList:res});
@@ -115,15 +119,18 @@ function handleClickCompletedTasks(){
 }
 
 function handleclickDelayedTask(){
-    var date = new Date();
-    var fullYear = date.getFullYear();
-    var month = date.getMonth()+1;
-    var date1 = date.getDate();
     getdelyedTask(user?.email!,`${fullYear}-${month}-${date1}`).then((res)=>{
         taskListDispatcher({type:"set-list",taskList:res});
         console.log(res)
     })
 }
+
+useEffect(()=>{
+    getTodaysAllTask(user?.email!,`${fullYear}-${month}-${date1}`).then((res)=>{
+       setNumOfTaskToday(res.length);
+    })
+
+},[taskList])
 
     // @ts-ignore
     // @ts-ignore
@@ -206,6 +213,27 @@ function handleclickDelayedTask(){
                             onClick={handleclickAllTask}
                             className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Get All Tasks
                     </button>
+                </div>
+                <div className="flex flex-col gap-4">
+                    <div className={"flex flex-row gap-4"}>
+                        <h2 className="text-4xl font-bold dark:text-white">Today</h2>
+                        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill="currentColor"
+                                  d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
+                            <path fill="#fff"
+                                  d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
+                        </svg>
+                    </div>
+
+                    <p className="mb-3 text-lg text-gray-500 md:text-xl dark:text-gray-400">{`${fullYear}-${month}-${date1}`}</p>
+                    <div className="flex flex-row gap-4">
+                        <h3 className="text-3xl font-bold dark:text-white">Task to Achieve Today:</h3>
+                        <h4 className="text-2xl text-red-600 font-bold dark:text-white">{numOftaskToday}</h4>
+                    </div>
+                    <h3 className="text-3xl font-bold text-blue-800 dark:text-white">You Can Do It!
+                        </h3>
+
                 </div>
 
             </div>

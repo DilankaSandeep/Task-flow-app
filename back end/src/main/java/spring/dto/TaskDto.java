@@ -29,7 +29,7 @@ public class TaskDto implements Serializable {
     @Column(length = 400,nullable = false)
     private String description;
 
-    @Future(message = "Date should be in future")
+    @FutureOrPresent(message = "Date should be today or in the future")
     @Column
     private LocalDate deadline;
 
