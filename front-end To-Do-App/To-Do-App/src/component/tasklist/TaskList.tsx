@@ -1,17 +1,19 @@
 import {useUser} from "../../contex/UserContex.tsx";
 import {useTaskList, useTaskListDispatcher} from "../../contex/TaskListContex.tsx";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {deleteTaskbyId, getAllTasks, updateTask} from "../../service/TaskService.ts";
 import {TaskDto} from "../../dto/TaskDto.ts";
 import './TaskList.css'
+import {Loader} from "../loader/Loader.tsx";
 
 export const TaskList = () => {
     const user = useUser();
     const  taskList = useTaskList();
     const taskListDispatcher = useTaskListDispatcher();
-
+    const [loader, setLoader] = useState(true);
     useEffect(()=>{
         getAllTasks(user!.email!).then(taskList => {
+            setLoader(false);
             taskListDispatcher({type: 'set-list', taskList});
             console.log("tasklist came")
 
@@ -58,9 +60,12 @@ export const TaskList = () => {
     // @ts-ignore
     return (
         <>
+            {loader?
+            <Loader/>:
+
             <div className="w-full flex  justify-center text-center relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className=" w-full md:w-11/12 lg:w-11/12 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-gray-700 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-blue-700-700 dark:text-black">
                     <tr>
 
                         <th scope="col" className="px-6 py-3">
@@ -123,6 +128,7 @@ export const TaskList = () => {
                 </table>
 
             </div>
+            }
 
 
         </>
