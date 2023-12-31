@@ -63,8 +63,8 @@ export const TaskList = () => {
             {loader?
             <Loader/>:
 
-            <div className="w-full flex  justify-center text-center relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className=" w-full md:w-11/12 lg:w-11/12 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <div className="w-full flex  justify-center text-center relative overflow-x-auto sm:overflow-scroll shadow-md sm:rounded-lg">
+                <table className=" w-full sm:w-full md:w-11/12 lg:w-11/12 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-blue-700-700 dark:text-black">
                     <tr>
 

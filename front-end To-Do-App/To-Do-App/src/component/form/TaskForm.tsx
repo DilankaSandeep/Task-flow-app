@@ -137,7 +137,7 @@ useEffect(()=>{
     // @ts-ignore
     return (
         <>
-            <div className="w-full flex flex-row justify-start gap-x-16 p-2">
+            <div className="w-full flex lg:flex-row xl:flex-row  flex-col justify-start gap-x-16 p-2">
                 <form className=" w-3/6 align-top" onSubmit={handleSubmit}>
                     <div className="mb-5 ">
                         <label htmlFor="taskdes" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Task Description</label>

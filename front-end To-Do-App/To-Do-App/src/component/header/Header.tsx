@@ -17,9 +17,9 @@ export const Header = () => {
     return (
 
         <>
-            <div className="flex flex-row justify-between p-2">
+            <div className="flex lg:flex-row flex-col justify-between p-2">
                 <h1 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-2xl dark:text-white">Organize, Prioritize, Achieve: <span className="text-blue-600 dark:text-blue-500">Task-Flow </span>Achieve your Targets</h1>
-                <div className="flex flex-row gap-8">
+                <div className="flex flex-row  gap-8">
                     <Switcher />
                     <div className="user text-blue-600 dark:text-white">
                         <div>Signed In As</div>
