@@ -42,6 +42,7 @@ Frontend Details
     Styling: Integrated Tailwind CSS utility classes and utilized FlowBite Tailwind components.
     Design: Responsive design for a smooth experience on various devices.
     Themes: Supports both light and dark modes.
+    Authentication: FireBase Authentication
 
 To-Do App Backend
 
