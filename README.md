@@ -1,5 +1,4 @@
-# To-Do-App
-
+# Task Flow- To-DO-App
 
 Introducing Task Flow: Your Effortless To-Do Management Web Application
 
@@ -17,20 +16,32 @@ Key Features:
     Delete tasks from your to-do list effortlessly, adapting to changes in your priorities and schedule. Enjoy the freedom to customize your task list based on your evolving needs.
 
     Visualize Progress with Color Coding:
-    Stay informed at a glance with color-coded tasks. Easily distinguish between completed tasks and those still on your to-do list. Task Flow brings clarity to your progress.
+    Stay informed at a glance with color-coded tasks. Easily distinguish between completed tasks and those still on your to-do list and delayed tasks. Task Flow brings clarity to your progress.
 
     Effortless Accessibility:
     Task Flow is designed for convenience. Whether you're at your PC or on your mobile device, access your to-do list from anywhere with ease. Stay in control of your tasks, no matter where life takes you.
 
     Organize Tasks for Today and Beyond:
-    Sort and filter tasks to find what matters most. Task Flow allows you to categorize tasks based on completion status, view today's tasks, and access a comprehensive list of all your tasks.
+    Sort and filter tasks to find what matters most. Task Flow allows you to categorize tasks based on completion status, view today's tasks,view Delayed task and access a comprehensive list of all your tasks.
 
     Responsive Design for Any Device:
     Task Flow is responsive and user-friendly, providing a seamless experience across various devices. Log in and manage your to-do list whether you're at home, at the office, or on the road.
+    
+    No The calender date
+    Task Flow app consist with Labels to see the date and notification on How many task achieve on today.
 
 Task Flow is more than just a to-do application; it's a dynamic tool designed to adapt to your unique workflow. Embrace the efficiency and simplicity of Task Flow to conquer your to-do list and achieve your goals effortlessly.
 
 Sign up today and experience the convenience of Task Flow – your go-to solution for effortless to-do management.
+To-Do App Frontend
+Frontend Details
+
+    Build System: Vite
+    Framework: React.js
+    Language: TypeScript
+    Styling: Integrated Tailwind CSS utility classes and utilized FlowBite Tailwind components.
+    Design: Responsive design for a smooth experience on various devices.
+    Themes: Supports both light and dark modes.
 
 To-Do App Backend
 
@@ -78,16 +89,34 @@ bash
 
     http://localhost:8080/api/v1/tasks
 
-API Endpoints
-Create Task
+API Endpoints,
+    Get All Tasks
+        Endpoint: GET /api/v1/tasks
+        Parameters: email
+        Returns a list of tasks for a specific email.
+        GET /api/v1/tasks?email=user@example.com
 
-http
+    Get All Today's Tasks
+        Endpoint: GET /api/v1/tasks
+        Parameters: email, deadline
+        Returns a list of tasks for a specific email and deadline.
 
-POST /api/v1/tasks
+    Get Delayed Tasks
+        Endpoint: GET /api/v1/tasks
+        Parameters: email, today
+        Returns a list of delayed tasks for a specific email and date.
 
-Create a new task.
+    Get All Completed/Todo Tasks
+        Endpoint: GET /api/v1/tasks
+        Parameters: email, status
+        Returns a list of completed or todo tasks for a specific email.
 
-Request:
+    Create a Task
+        Endpoint: POST /api/v1/tasks
+        Consumes: JSON
+        Creates a new task based on the provided details.
+        
+        Request:
 
 json
 
@@ -98,117 +127,15 @@ json
 "description": "Task description"
 }
 
-Response:
+    Delete a Task
+        Endpoint: DELETE /api/v1/tasks/{taskID}
+        Deletes a task based on the provided taskID.
 
-http
-
-201 Created
-
-json
-
-{
-"taskId": 1,
-"deadline": "2023-12-31",
-"email": "user@example.com",
-"status": false,
-"description": "Task description"
-}
-
-Delete Task
-
-http
-
-DELETE /api/v1/tasks/{taskid}
-
-Delete an existing task by ID.
-
-Response:
-
-http
-
-204 No Content
-
-Update Task
-
-http
-
-PATCH /api/v1/tasks/{taskid}
-
-Update an existing task by ID.
-
-Request:
-
-json
-
-{
-"deadline": "2023-12-31",
-"email": "user@example.com",
-"status": true,
-"description": "Updated task description"
-}
-
-Response:
-
-http
-
-204 No Content
-
-Get All Tasks by Email
-
-http
-
-GET /api/v1/tasks?email=user@example.com
-
-Get a list of tasks for a specific email.
-
-Response:
-
-http
-
-200 OK
-
-json
-
-[
-{
-"taskId": 1,
-"deadline": "2023-12-31",
-"email": "user@example.com",
-"status": false,
-"description": "Task description"
-},
-{
-"taskId": 2,
-"deadline": "2023-12-31",
-"email": "user@example.com",
-"status": true,
-"description": "Updated task description"
-}
-]
-
-Get Task by ID
-
-http
-
-GET /api/v1/tasks/{taskid}
-
-Get details of a task by ID.
-
-Response:
-
-http
-
-200 OK
-
-json
-
-{
-"taskId": 1,
-"deadline": "2023-12-31",
-"email": "user@example.com",
-"status": false,
-"description": "Task description"
-}
+    Update a Task
+        Endpoint: PATCH /api/v1/tasks/{taskid}
+        Consumes: JSON
+        Updates a task based on the provided taskID and task details.
+        
 
 Additional Configuration
 
